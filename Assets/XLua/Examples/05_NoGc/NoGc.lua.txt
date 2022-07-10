@@ -1,0 +1,35 @@
+﻿function id(...)
+    return ...
+end
+
+function add(a, b) return a + b end
+
+function array_exchange(arr)
+    arr[0], arr[1] = arr[1], arr[0]
+end
+
+local v3 = CS.UnityEngine.Vector3(7, 8, 9)
+local vt = CS.XLuaTest.MyStruct(5, 6)
+
+function lua_access_csharp()
+    monoBehaviour:FloatParamMethod(123) --primitive
+    monoBehaviour:Vector3ParamMethod(v3) --vector3
+    local rnd = math.random(1, 100)
+    local r = monoBehaviour:Vector3ParamMethod({x = 1, y = 2, z = rnd}) --vector3
+    assert(r.x == 1 and r.y == 2 and r.z == rnd)
+    monoBehaviour:StructParamMethod(vt) --custom struct
+    r = monoBehaviour:StructParamMethod({a = 1, b = rnd, e = {c = rnd}})
+    assert(r.b == rnd and r.e.c == rnd)
+    monoBehaviour:EnumParamMethod(CS.XLuaTest.MyEnum.E2) --enum
+    monoBehaviour:DecimalParamMethod(monoBehaviour.a5[0])
+    monoBehaviour.a1[0], monoBehaviour.a1[1] = monoBehaviour.a1[1], monoBehaviour.a1[0] -- field
+end
+
+exchanger = {
+    exchange = function(self, arr)
+        array_exchange(arr)
+    end
+}
+
+A = { B = { C = 789}}
+GDATA = 1234;

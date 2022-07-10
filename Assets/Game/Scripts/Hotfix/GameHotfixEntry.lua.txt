@@ -1,0 +1,11 @@
+﻿function StartHotfix()
+    print("Start hotfix ...")
+    --OpenLuaUIForm(LuaUIFormId.MenuForm, "MenuForm");
+    --OpenLuaUIForm(1000, "MenuForm");
+    CS.UnityEngine.Debug.Log("0000");
+    Game.GameEntry.BuiltinData.LuaDebug("1111");
+    CS.Game.GameEntry.BuiltinData.LuaDebug("0000");
+    CS.Game.GameEntry.UI.OpenHotfixUIForm("UI/UIForm/MenuForm", 1000)
+end
+
+StartHotfix()

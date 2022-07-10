@@ -1,0 +1,61 @@
+-- 计算元表（基类）
+local calc_mt = {
+    __index = {
+        -- Add方法
+        Add = function(self, a, b)
+            return (a + b) * self.Mult
+        end,
+        -- 索引器Get，固定函数名 get_Item
+        get_Item = function(self, index)
+            return self.list[index + 1]
+        end,
+        -- 索引器Set，固定函数名 set_Item
+        set_Item = function(self, index, value)
+            self.list[index + 1] = value
+            self:notify({ name = index, value = value })
+        end,
+        --重写属性添加事件，固定前缀 add_
+        add_PropertyChanged = function(self, delegate)
+            --新建通知列表，增加add监听
+            if self.notifies == nil then
+                self.notifies = {}
+            end
+            table.insert(self.notifies, delegate)
+            print('add', delegate)
+        end,
+        --重写属性移除事件，固定前缀 remove_
+        remove_PropertyChanged = function(self, delegate)
+            --从通知列表移除监听
+            for i = 1, #self.notifies do
+                if CS.System.Object.Equals(self.notifies[i], delegate) then
+                    table.remove(self.notifies, i)
+                    break
+                end
+            end
+            print('remove', delegate)
+        end,
+        --通知方法，监听事件，固定函数名 notify
+        notify = function(self, evt, c)
+            print("notify", c)
+            if self.notifies ~= nil then
+                for i = 1, #self.notifies do
+                    self.notifies[i](self, evt) -- delegate(self,evt)
+                end
+            end
+        end,
+    }
+}
+
+Calc = {
+    New = function(mult, ...)
+        -- ...表示多个参数
+        print(...)
+        local tempTable = {
+            Mult = mult,
+            list = { 'aaaa', 'bbbb', 'cccc' }
+        }
+        setmetatable(tempTable, calc_mt)
+        return tempTable;
+        -- return setmetatable({ Mult = mult, list = { 'aaaa', 'bbbb', 'cccc' } }, calc_mt)
+    end
+}
