@@ -31,9 +31,7 @@ namespace Game
         protected override void OnEnter(IFsm<IProcedureManager> procedureOwner)
         {
             base.OnEnter(procedureOwner);
-
-            GameEntry.XLua.DoLuaScript("GameHotfixEntry");
-            return;
+            
             GameEntry.Event.Subscribe(LoadConfigSuccessEventArgs.EventId, OnLoadConfigSuccess);
             GameEntry.Event.Subscribe(LoadConfigFailureEventArgs.EventId, OnLoadConfigFailure);
             GameEntry.Event.Subscribe(LoadDataTableSuccessEventArgs.EventId, OnLoadDataTableSuccess);
@@ -44,8 +42,6 @@ namespace Game
             m_LoadedFlag.Clear();
 
             PreloadResources();
-            
-            GameEntry.UI.OpenHotfixUIForm("MenuForm",1000);
         }
 
         protected override void OnLeave(IFsm<IProcedureManager> procedureOwner, bool isShutdown)
@@ -75,7 +71,7 @@ namespace Game
             // procedureOwner.SetData<VarInt32>("NextSceneId", GameEntry.Config.GetInt("Scene.Menu"));
             // ChangeState<ProcedureChangeScene>(procedureOwner);
 
-          //  ChangeState<ProcedureILManager>(procedureOwner);
+            ChangeState<ProcedureHotfixManager>(procedureOwner);
         }
 
         private void PreloadResources()

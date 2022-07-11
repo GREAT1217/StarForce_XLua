@@ -47,7 +47,7 @@
 		
 	</assembly>
 
-	<assembly fullname="XLua">
+	<assembly fullname="Assembly-CSharp">
 	    <type fullname="Tutorial.BaseClass" preserve="all"/>
 		<type fullname="Tutorial.TestEnum" preserve="all"/>
 		<type fullname="Tutorial.DerivedClass" preserve="all"/>
@@ -65,6 +65,11 @@
 		<type fullname="XLuaTest.Foo2Child" preserve="all"/>
 		<type fullname="XLuaTest.Foo" preserve="all"/>
 		<type fullname="XLuaTest.FooExtension" preserve="all"/>
+		<type fullname="Game.GameEntry" preserve="all"/>
+		<type fullname="Game.ReferenceCollector" preserve="all"/>
+		<type fullname="Game.HotfixForm" preserve="all"/>
+		<type fullname="Game.UIExtension" preserve="all"/>
+		<type fullname="Game.XLuaLog" preserve="all"/>
 		<type fullname="Tutorial.DerivedClass+TestEnumInner" preserve="all"/>
 		
 	</assembly>

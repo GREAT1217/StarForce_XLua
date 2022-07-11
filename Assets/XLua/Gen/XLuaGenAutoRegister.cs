@@ -160,6 +160,25 @@ namespace XLua.CSObjectWrap
             translator.DelayWrapLoader(typeof(XLuaTest.FooExtension), XLuaTestFooExtensionWrap.__Register);
         
         
+            translator.DelayWrapLoader(typeof(Game.GameEntry), GameGameEntryWrap.__Register);
+        
+        
+            translator.DelayWrapLoader(typeof(Game.ReferenceCollector), GameReferenceCollectorWrap.__Register);
+        
+        
+            translator.DelayWrapLoader(typeof(Game.HotfixForm), GameHotfixFormWrap.__Register);
+        
+        
+            translator.DelayWrapLoader(typeof(Game.UIExtension), GameUIExtensionWrap.__Register);
+        
+        
+            translator.DelayWrapLoader(typeof(Game.XLuaLog), GameXLuaLogWrap.__Register);
+        
+        }
+        
+        static void wrapInit1(LuaEnv luaenv, ObjectTranslator translator)
+        {
+        
             translator.DelayWrapLoader(typeof(Tutorial.DerivedClass.TestEnumInner), TutorialDerivedClassTestEnumInnerWrap.__Register);
         
         
@@ -170,6 +189,8 @@ namespace XLua.CSObjectWrap
         {
             
             wrapInit0(luaenv, translator);
+            
+            wrapInit1(luaenv, translator);
             
             
             translator.AddInterfaceBridgeCreator(typeof(System.Collections.IEnumerator), SystemCollectionsIEnumeratorBridge.__Create);
@@ -202,11 +223,122 @@ namespace XLua
 	internal partial class InternalGlobals
     {
 	    
+		delegate System.Collections.IEnumerator __GEN_DELEGATE0( UnityEngine.CanvasGroup canvasGroup,  float alpha,  float duration);
+		
+		delegate System.Collections.IEnumerator __GEN_DELEGATE1( UnityEngine.UI.Slider slider,  float value,  float duration);
+		
+		delegate void __GEN_DELEGATE2( UnityGameFramework.Runtime.UIComponent uiComponent,  Game.UGuiForm uiForm);
+		
+		delegate bool __GEN_DELEGATE3( UnityGameFramework.Runtime.UIComponent uiComponent,  Game.UIFormId uiFormId,  string uiGroupName);
+		
+		delegate bool __GEN_DELEGATE4( UnityGameFramework.Runtime.UIComponent uiComponent,  int uiFormId,  string uiGroupName);
+		
+		delegate Game.UGuiForm __GEN_DELEGATE5( UnityGameFramework.Runtime.UIComponent uiComponent,  Game.UIFormId uiFormId,  string uiGroupName);
+		
+		delegate Game.UGuiForm __GEN_DELEGATE6( UnityGameFramework.Runtime.UIComponent uiComponent,  int uiFormId,  string uiGroupName);
+		
+		delegate System.Nullable<int> __GEN_DELEGATE7( UnityGameFramework.Runtime.UIComponent uiComponent,  Game.UIFormId uiFormId,  object userData);
+		
+		delegate System.Nullable<int> __GEN_DELEGATE8( UnityGameFramework.Runtime.UIComponent uiComponent,  int uiFormId,  object userData);
+		
+		delegate void __GEN_DELEGATE9( UnityGameFramework.Runtime.UIComponent uiComponent,  Game.DialogParams dialogParams);
+		
+		delegate void __GEN_DELEGATE10( UnityGameFramework.Runtime.UIComponent uiComponent,  string hotfixUIName,  int uiFormId,  object userData);
+		
 	    static InternalGlobals()
 		{
 		    extensionMethodMap = new Dictionary<Type, IEnumerable<MethodInfo>>()
 			{
 			    
+				{typeof(UnityEngine.CanvasGroup), new List<MethodInfo>(){
+				
+				  new __GEN_DELEGATE0(Game.UIExtension.FadeToAlpha)
+#if UNITY_WSA && !UNITY_EDITOR
+                                      .GetMethodInfo(),
+#else
+                                      .Method,
+#endif
+				
+				}},
+				
+				{typeof(UnityEngine.UI.Slider), new List<MethodInfo>(){
+				
+				  new __GEN_DELEGATE1(Game.UIExtension.SmoothValue)
+#if UNITY_WSA && !UNITY_EDITOR
+                                      .GetMethodInfo(),
+#else
+                                      .Method,
+#endif
+				
+				}},
+				
+				{typeof(UnityGameFramework.Runtime.UIComponent), new List<MethodInfo>(){
+				
+				  new __GEN_DELEGATE2(Game.UIExtension.CloseUIForm)
+#if UNITY_WSA && !UNITY_EDITOR
+                                      .GetMethodInfo(),
+#else
+                                      .Method,
+#endif
+				
+				  new __GEN_DELEGATE3(Game.UIExtension.HasUIForm)
+#if UNITY_WSA && !UNITY_EDITOR
+                                      .GetMethodInfo(),
+#else
+                                      .Method,
+#endif
+				
+				  new __GEN_DELEGATE4(Game.UIExtension.HasUIForm)
+#if UNITY_WSA && !UNITY_EDITOR
+                                      .GetMethodInfo(),
+#else
+                                      .Method,
+#endif
+				
+				  new __GEN_DELEGATE5(Game.UIExtension.GetUIForm)
+#if UNITY_WSA && !UNITY_EDITOR
+                                      .GetMethodInfo(),
+#else
+                                      .Method,
+#endif
+				
+				  new __GEN_DELEGATE6(Game.UIExtension.GetUIForm)
+#if UNITY_WSA && !UNITY_EDITOR
+                                      .GetMethodInfo(),
+#else
+                                      .Method,
+#endif
+				
+				  new __GEN_DELEGATE7(Game.UIExtension.OpenUIForm)
+#if UNITY_WSA && !UNITY_EDITOR
+                                      .GetMethodInfo(),
+#else
+                                      .Method,
+#endif
+				
+				  new __GEN_DELEGATE8(Game.UIExtension.OpenUIForm)
+#if UNITY_WSA && !UNITY_EDITOR
+                                      .GetMethodInfo(),
+#else
+                                      .Method,
+#endif
+				
+				  new __GEN_DELEGATE9(Game.UIExtension.OpenDialog)
+#if UNITY_WSA && !UNITY_EDITOR
+                                      .GetMethodInfo(),
+#else
+                                      .Method,
+#endif
+				
+				  new __GEN_DELEGATE10(Game.UIExtension.OpenHotfixUIForm)
+#if UNITY_WSA && !UNITY_EDITOR
+                                      .GetMethodInfo(),
+#else
+                                      .Method,
+#endif
+				
+				}},
+				
 			};
 			
 			genTryArrayGetPtr = StaticLuaCallbacks.__tryArrayGet;

@@ -5,7 +5,7 @@ using XLua;
 
 namespace Game
 {
-    public class XluaComponent : GameFrameworkComponent
+    public class XLuaComponent : GameFrameworkComponent
     {
         private LuaEnv m_LuaEnv;
         private Dictionary<string, string> m_CacheLuaDict;
@@ -13,7 +13,24 @@ namespace Game
         private void Start()
         {
             m_LuaEnv = new LuaEnv();
+            m_LuaEnv.AddLoader(CustomLoader);
             m_CacheLuaDict = new Dictionary<string, string>();
+        }
+
+        /// <summary>
+        /// 自定义 Loader，用于 Lua 中 require ("")。
+        /// </summary>
+        /// <param name="scriptName">脚本名称。</param>
+        /// <returns></returns>
+        private byte[] CustomLoader(ref string scriptName)
+        {
+            if (m_CacheLuaDict.TryGetValue(scriptName, out string script))
+            {
+                return System.Text.Encoding.UTF8.GetBytes(script);
+            }
+
+            Log.Warning("require scriptName '{0}' is not exits.", scriptName);
+            return null;
         }
 
         private void Update()
@@ -46,7 +63,6 @@ namespace Game
                 {
                     if (m_LuaEnv != null)
                     {
-                        Log.Info(luaScript);
                         m_LuaEnv.DoString(luaScript);
                     }
                 }
@@ -72,14 +88,14 @@ namespace Game
             return null;
         }
 
-        public LuaTable GetLuaTable(LuaTable luaTable, string tableName)
+        public LuaFunction GetLuaFunction(LuaTable luaTable, string tableName)
         {
             if (luaTable != null)
             {
-                return luaTable.Get<LuaTable>(tableName);
+                return luaTable.Get<LuaFunction>(tableName);
             }
 
-            Log.Error("Lua table is null, Lua table '{0}' get failed.", tableName);
+            Log.Error("Lua table is null, Lua function '{0}' get failed.", tableName);
             return null;
         }
 
@@ -104,6 +120,5 @@ namespace Game
                 Log.Error("Lua table is null, Lua function '{0}' invoke failed.", functionName);
             }
         }
-        
     }
 }

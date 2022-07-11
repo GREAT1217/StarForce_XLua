@@ -45,6 +45,13 @@ namespace Tutorial
 		E2
 	}
 
+	public class AA
+	{
+		public void Log()
+		{
+			Debug.Log("aaaaaaaaa");
+		}
+	}
 
 	[LuaCallCSharp]
 	public class DerivedClass : BaseClass
@@ -61,6 +68,12 @@ namespace Tutorial
 			Debug.Log("Derived Member Func, DMF = " + DMF);
 		}
 
+		public static AA AA
+		{
+			get;
+			set;
+		}
+		
 		public int DMF { get; set; }
 
 		public double ComplexFunc(Param1 p1, ref int p2, out string p3, Action luafunc, out Action csfunc)

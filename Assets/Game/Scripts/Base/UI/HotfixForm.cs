@@ -1,20 +1,22 @@
-﻿using XLua;
+﻿using UnityGameFramework.Runtime;
+using XLua;
 
 namespace Game
 {
+    [LuaCallCSharp]
     public class HotfixForm : UGuiForm
     {
         // 热更新层的方法缓存。
-        // private LuaTable m_OnRecycle;
-        // private LuaTable m_OnOpen;
-        // private LuaTable m_OnClose;
-        // private LuaTable m_OnPause;
-        // private LuaTable m_OnResume;
-        // private LuaTable m_OnCover;
-        // private LuaTable m_OnReveal;
-        // private LuaTable m_OnRefocus;
-        // private LuaTable m_OnUpdate;
-        // private LuaTable m_OnDepthChanged;
+        private LuaFunction m_OnRecycle;
+        private LuaFunction m_OnOpen;
+        private LuaFunction m_OnClose;
+        private LuaFunction m_OnPause;
+        private LuaFunction m_OnResume;
+        private LuaFunction m_OnCover;
+        private LuaFunction m_OnReveal;
+        private LuaFunction m_OnRefocus;
+        private LuaFunction m_OnUpdate;
+        private LuaFunction m_OnDepthChanged;
 
         /// <summary>
         /// 热更新层的界面实例。
@@ -45,89 +47,89 @@ namespace Game
 
             // 获取热更新层的实例。
             string luaName = data.HotfixTypeName;
+            string tableName = data.HotfixTypeName.Substring(data.HotfixTypeName.LastIndexOf('/') + 1);
             GameEntry.XLua.DoLuaScript(luaName);
-            LuaForm = GameEntry.XLua.GetLuaTable(luaName, Name);
-
+            LuaForm = GameEntry.XLua.GetLuaTable(luaName, tableName);
             // Action luaAwake = scriptEnv.Get<Action>("awake");
             // scriptEnv.Get("start", out luaStart);
             // scriptEnv.Get("update", out luaUpdate);
             // scriptEnv.Get("ondestroy", out luaOnDestroy);
 
             // 获取热更新层的方法并缓存。
-            // m_OnRecycle = GameEntry.XLua.GetLuaTable(HotfixForm, "OnRecycle");
-            // m_OnOpen = GameEntry.XLua.GetLuaTable(HotfixForm, "OnOpen");
-            // m_OnClose = GameEntry.XLua.GetLuaTable(HotfixForm, "OnClose");
-            // m_OnPause = GameEntry.XLua.GetLuaTable(HotfixForm, "OnPause");
-            // m_OnResume = GameEntry.XLua.GetLuaTable(HotfixForm, "OnResume");
-            // m_OnCover = GameEntry.XLua.GetLuaTable(HotfixForm, "OnCover");
-            // m_OnReveal = GameEntry.XLua.GetLuaTable(HotfixForm, "OnReveal");
-            // m_OnRefocus = GameEntry.XLua.GetLuaTable(HotfixForm, "OnRefocus");
-            // m_OnUpdate = GameEntry.XLua.GetLuaTable(HotfixForm, "OnUpdate");
-            // m_OnDepthChanged = GameEntry.XLua.GetLuaTable(HotfixForm, "OnDepthChanged");
+            m_OnRecycle = GameEntry.XLua.GetLuaFunction(LuaForm, "OnRecycle");
+            m_OnOpen = GameEntry.XLua.GetLuaFunction(LuaForm, "OnOpen");
+            m_OnClose = GameEntry.XLua.GetLuaFunction(LuaForm, "OnClose");
+            m_OnPause = GameEntry.XLua.GetLuaFunction(LuaForm, "OnPause");
+            m_OnResume = GameEntry.XLua.GetLuaFunction(LuaForm, "OnResume");
+            m_OnCover = GameEntry.XLua.GetLuaFunction(LuaForm, "OnCover");
+            m_OnReveal = GameEntry.XLua.GetLuaFunction(LuaForm, "OnReveal");
+            m_OnRefocus = GameEntry.XLua.GetLuaFunction(LuaForm, "OnRefocus");
+            m_OnUpdate = GameEntry.XLua.GetLuaFunction(LuaForm, "OnUpdate");
+            m_OnDepthChanged = GameEntry.XLua.GetLuaFunction(LuaForm, "OnDepthChanged");
 
             // 调用热更新层的 OnInit()
             data.HotfixLogic = this;
-            GameEntry.XLua.InvokeLuaFunction(LuaForm, "OnInit", data);
+            GameEntry.XLua.InvokeLuaFunction(LuaForm, "OnInit", LuaForm, data); // 传入 LuaForm 用于 LuaForm 调用自身的基类：self.base
         }
 
         protected override void OnRecycle()
         {
             base.OnRecycle();
-            GameEntry.XLua.InvokeLuaFunction(LuaForm, "OnRecycle");
+            m_OnRecycle.Call(LuaForm);
         }
 
         protected override void OnOpen(object userData)
         {
             base.OnOpen(userData);
-            GameEntry.XLua.InvokeLuaFunction(LuaForm, "OnOpen", userData);
+            m_OnOpen.Call(LuaForm, userData);
         }
 
         protected override void OnClose(bool isShutdown, object userData)
         {
             base.OnClose(isShutdown, userData);
-            GameEntry.XLua.InvokeLuaFunction(LuaForm, "OnClose", isShutdown, userData);
+            m_OnClose.Call(LuaForm, isShutdown, userData);
         }
 
         protected override void OnPause()
         {
             base.OnPause();
-            GameEntry.XLua.InvokeLuaFunction(LuaForm, "OnPause");
+            m_OnPause.Call(LuaForm);
         }
 
         protected override void OnResume()
         {
             base.OnResume();
-            GameEntry.XLua.InvokeLuaFunction(LuaForm, "OnResume");
+            m_OnResume.Call(LuaForm);
         }
 
         protected override void OnCover()
         {
             base.OnCover();
-            GameEntry.XLua.InvokeLuaFunction(LuaForm, "OnCover");
+            m_OnCover.Call(LuaForm);
         }
 
         protected override void OnReveal()
         {
             base.OnReveal();
-            GameEntry.XLua.InvokeLuaFunction(LuaForm, "OnReveal");
+            m_OnReveal.Call(LuaForm);
         }
 
         protected override void OnRefocus(object userData)
         {
             base.OnRefocus(userData);
-            GameEntry.XLua.InvokeLuaFunction(LuaForm, "OnRefocus", userData);
+            m_OnRefocus.Call(LuaForm, userData);
         }
 
         protected override void OnUpdate(float elapseSeconds, float realElapseSeconds)
         {
             base.OnUpdate(elapseSeconds, realElapseSeconds);
-            GameEntry.XLua.InvokeLuaFunction(LuaForm, "OnUpdate", elapseSeconds, realElapseSeconds);
+            m_OnUpdate.Call(LuaForm, elapseSeconds, realElapseSeconds);
         }
 
         protected override void OnDepthChanged(int uiGroupDepth, int depthInUIGroup)
         {
             base.OnDepthChanged(uiGroupDepth, depthInUIGroup);
-            GameEntry.XLua.InvokeLuaFunction(LuaForm, "OnDepthChanged", uiGroupDepth, depthInUIGroup);
+            m_OnDepthChanged.Call(LuaForm, uiGroupDepth, depthInUIGroup);
         }
     }
 }

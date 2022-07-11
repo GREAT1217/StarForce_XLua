@@ -1,11 +1,13 @@
 ﻿using UnityEngine;
 using UnityGameFramework.Runtime;
+using XLua;
 
 namespace Game
 {
     /// <summary>
     /// 游戏入口。
     /// </summary>
+    [LuaCallCSharp]
     public class GameEntry : MonoBehaviour
     {
         /// <summary>
@@ -207,9 +209,9 @@ namespace Game
         }
 
         /// <summary>
-        /// ILRuntime组件。
+        /// XLua组件。
         /// </summary>
-        public static XluaComponent XLua
+        public static XLuaComponent XLua
         {
             get;
             private set;
@@ -239,7 +241,7 @@ namespace Game
             WebRequest = UnityGameFramework.Runtime.GameEntry.GetComponent<WebRequestComponent>();
             BuiltinData = UnityGameFramework.Runtime.GameEntry.GetComponent<BuiltinDataComponent>();
             HPBar = UnityGameFramework.Runtime.GameEntry.GetComponent<HPBarComponent>();
-            XLua = UnityGameFramework.Runtime.GameEntry.GetComponent<XluaComponent>();
+            XLua = UnityGameFramework.Runtime.GameEntry.GetComponent<XLuaComponent>();
         }
     }
 }

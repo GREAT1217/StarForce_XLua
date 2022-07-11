@@ -3,11 +3,13 @@ using System;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityGameFramework.Runtime;
+using XLua;
 
 namespace Game
 {
     [AddComponentMenu("Game Main/Reference Collector")]   //组件列表菜单
     [DisallowMultipleComponent]
+    [LuaCallCSharp]
     public sealed partial class ReferenceCollector : MonoBehaviour, ISerializationCallbackReceiver
     {
         [SerializeField]

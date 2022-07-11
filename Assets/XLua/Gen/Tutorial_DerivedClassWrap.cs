@@ -48,12 +48,14 @@ namespace XLua.CSObjectWrap
 			Utils.EndObjectRegister(type, L, translator, null, null,
 			    null, null, null);
 
-		    Utils.BeginClassRegister(type, L, __CreateInstance, 1, 0, 0);
+		    Utils.BeginClassRegister(type, L, __CreateInstance, 1, 1, 1);
 			
 			
             
-			
-			
+			Utils.RegisterFunc(L, Utils.CLS_GETTER_IDX, "AA", _g_get_AA);
+            
+			Utils.RegisterFunc(L, Utils.CLS_SETTER_IDX, "AA", _s_set_AA);
+            
 			
 			Utils.EndClassRegister(type, L, translator);
         }
@@ -487,6 +489,18 @@ namespace XLua.CSObjectWrap
         
         
         [MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
+        static int _g_get_AA(RealStatePtr L)
+        {
+		    try {
+                ObjectTranslator translator = ObjectTranslatorPool.Instance.Find(L);
+			    translator.Push(L, Tutorial.DerivedClass.AA);
+            } catch(System.Exception gen_e) {
+                return LuaAPI.luaL_error(L, "c# exception:" + gen_e);
+            }
+            return 1;
+        }
+        
+        [MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
         static int _g_get_DMF(RealStatePtr L)
         {
 		    try {
@@ -515,6 +529,19 @@ namespace XLua.CSObjectWrap
         }
         
         
+        
+        [MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
+        static int _s_set_AA(RealStatePtr L)
+        {
+		    try {
+                ObjectTranslator translator = ObjectTranslatorPool.Instance.Find(L);
+			    Tutorial.DerivedClass.AA = (Tutorial.AA)translator.GetObject(L, 1, typeof(Tutorial.AA));
+            
+            } catch(System.Exception gen_e) {
+                return LuaAPI.luaL_error(L, "c# exception:" + gen_e);
+            }
+            return 0;
+        }
         
         [MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
         static int _s_set_DMF(RealStatePtr L)

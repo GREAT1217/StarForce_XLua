@@ -11,9 +11,11 @@ using GameFramework.UI;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityGameFramework.Runtime;
+using XLua;
 
 namespace Game
 {
+    [LuaCallCSharp]
     public static class UIExtension
     {
         public static IEnumerator FadeToAlpha(this CanvasGroup canvasGroup, float alpha, float duration)
