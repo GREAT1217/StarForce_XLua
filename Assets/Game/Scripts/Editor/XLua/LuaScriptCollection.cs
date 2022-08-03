@@ -25,6 +25,9 @@ namespace Game.Editor
             string json = JsonMapper.ToJson(luaScripts);
             string savePath = AssetUtility.GetConfigAsset("LuaScriptCollection", false);
             IOUtility.SaveFileSafe(savePath, json);
+            
+            AssetDatabase.SaveAssets();
+            AssetDatabase.Refresh();
         }
 
         private static void GetAllFiles(string path, string searchPattern, string directoryName, List<string> result)

@@ -1,0 +1,62 @@
+--- 面向对象基类。
+Object = {}
+
+--- 实例化对象。
+function Object:new()
+    local obj = {}
+    self.__index = self
+    setmetatable(obj, self)
+    return obj
+end
+
+--- 声明对象子类。
+function Object:subType(typeName)
+    -- 根据名称生成表
+    _G[typeName] = {}
+    local obj = _G[typeName]
+    --- 父类字段：base
+    obj.base = self
+    -- 设置元表和__index
+    self.__index = self
+    setmetatable(obj, self)
+end
+
+--print("Test=======================Start")
+--
+---- 声明类
+--Object:subType("ObjectBase")
+--ObjectBase.posX = 0
+--ObjectBase.posY = 0
+--
+--function ObjectBase:Move()
+--    self.posX = self.posX + 1
+--    self.posY = self.posY + 1
+--    print("move")
+--end
+--
+---- 声明子类
+--ObjectBase:subType("PlayerBase")
+--function PlayerBase:Move(object)
+--    self.base.Move(object);
+--end
+--
+---- 声明子子类
+--ObjectBase:subType("Player")
+--function Player:Move(object)
+--    self.base.Move(object);
+--end
+--
+---- 实例化子类对象
+--local player1 = Player:new()
+--print("Player1==" .. player1.posY)
+--player1:Move(player1)
+--print("Player1==" .. player1.posY)
+--
+--local player2 = Player:new()
+--print("Player2==" .. player2.posY)
+--player2:Move(player2)
+--print("Player2==" .. player2.posY)
+--
+--print("Test=======================End")
+
+return Object

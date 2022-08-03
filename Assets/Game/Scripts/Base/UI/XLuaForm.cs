@@ -35,7 +35,7 @@ namespace Game
 
         protected override void OnInit(object userData)
         {
-            HotfixUserData data = userData as HotfixUserData;
+            XLuaUserData data = userData as XLuaUserData;
             if (data == null)
             {
                 return;
@@ -46,9 +46,9 @@ namespace Game
             Components = GetComponent<ComponentCollection>();
 
             // 获取热更新层的实例。
-            string tableName = data.HotfixTypeName.Substring(data.HotfixTypeName.LastIndexOf('/') + 1);
-            GameEntry.XLua.DoLuaScript(data.HotfixTypeName);
-            LuaForm = GameEntry.XLua.GetLuaTable(data.HotfixTypeName, tableName);
+            string tableName = data.LuaScriptName.Substring(data.LuaScriptName.LastIndexOf('/') + 1);
+            GameEntry.XLua.DoLuaScript(data.LuaScriptName);
+            LuaForm = GameEntry.XLua.GetLuaTable(data.LuaScriptName, tableName);
 
             // 获取热更新层的方法并缓存。
             m_OnRecycle = GameEntry.XLua.GetLuaFunction(LuaForm, "OnRecycle");
@@ -63,7 +63,7 @@ namespace Game
             m_OnDepthChanged = GameEntry.XLua.GetLuaFunction(LuaForm, "OnDepthChanged");
 
             // 调用热更新层的 OnInit()
-            data.HotfixLogic = this;
+            data.BaseLogic = this;
             GameEntry.XLua.InvokeLuaFunction(LuaForm, "OnInit", LuaForm, data); // 传入 LuaForm 用于 LuaForm 调用自身的基类：self.base
         }
 

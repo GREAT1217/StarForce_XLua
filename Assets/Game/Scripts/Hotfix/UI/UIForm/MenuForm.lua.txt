@@ -13,16 +13,23 @@ function this:OnStartButtonClick()
 end
 
 function this:OnSettingButtonClick()
-    CS.Game.GameEntry.UI:OpenUIForm(CS.Game.UIFormId.SettingForm)
+   UI:OpenUIForm(CS.Game.UIFormId.SettingForm)
 end
 
 function this:OnAboutButtonClick()
-    CS.Game.GameEntry.UI:OpenUIForm(CS.Game.UIFormId.AboutForm)
+   UI:OpenUIForm(CS.Game.UIFormId.AboutForm)
 end
 
 function this:OnQuitButtonClick()
     local dialogParams = CS.Game.DialogParams()
-    -- todo 待补充
+    dialogParams.Mode = 2
+    dialogParams.Title = Localization:GetString("AskQuitGame.Title")
+    dialogParams.Message = Localization:GetString("AskQuitGame.Message")
+    dialogParams.OnClickConfirm = function()
+        GameFramework.GameEntry.Shutdown(GameFramework.ShutdownType.Quit)
+    end
+    
+    UI:OpenDialog(dialogParams)
 end
 
 function this:OnInit(userData)
@@ -46,12 +53,10 @@ function this:OnOpen(userData)
     end
 
     m_ProcedureMenu = userData.UserData
-    if m_ProcedureMenu == nil then 
+    if m_ProcedureMenu == nil then
         Log.Error("ProcedureMenu is invalid when open MenuForm.")
         return
     end
-
-    Log.Info("Menu Form Init complete.")
 end
 
 function this:OnClose(isShutDown, userData)

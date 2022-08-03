@@ -159,9 +159,9 @@ namespace Game
             uiComponent.OpenUIForm(UIFormId.DialogForm, dialogParams);
         }
 
-        public static void OpenHotfixUIForm(this UIComponent uiComponent, string hotfixUIName, int uiFormId, object userData = null)
+        public static void OpenXLuaForm(this UIComponent uiComponent, string hotfixUIName, int uiFormId, object userData = null)
         {
-            HotfixUserData data = new HotfixUserData(hotfixUIName, userData);
+            XLuaUserData data = new XLuaUserData(hotfixUIName, userData);
             OpenUIForm(uiComponent, uiFormId, data);
         }
     }

@@ -1,1 +1,1 @@
-["GameHotfixEntry","Core/class","Core/Functions","Core/LoginForm","Core/LoginItem","Core/Object","Core/util","Procedure/LuaProcedure","Procedure/ProcedureMenu","UI/LuaForm","UI/LuaUIFormId","UI/UIForm/MenuForm"]
+["Define/Define","Define/Object","UI/LuaForm","UI/UIForm/MenuForm"]

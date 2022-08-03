@@ -1,0 +1,22 @@
+GameFramework = CS.UnityGameFramework.Runtime
+GameLogic = CS.Game
+
+Log = CS.UnityGameFramework.Runtime.Log
+
+Config = CS.Game.GameEntry.Config
+DataNode = CS.Game.GameEntry.DataNode
+DataTable = CS.Game.GameEntry.DataTable
+Download = CS.Game.GameEntry.Download
+Entity = CS.Game.GameEntry.Entity
+Event = CS.Game.GameEntry.Event
+FileSystem = CS.Game.GameEntry.FileSystem
+FSM = CS.Game.GameEntry.FSM
+Localization = CS.Game.GameEntry.Localization
+Network = CS.Game.GameEntry.Network
+ObjectPool = CS.Game.GameEntry.ObjectPool
+Procedure = CS.Game.GameEntry.Procedure
+Scene = CS.Game.GameEntry.Scene
+Setting = CS.Game.GameEntry.Setting
+Sound = CS.Game.GameEntry.Sound
+UI = CS.Game.GameEntry.UI
+WebRequest = CS.Game.GameEntry.WebRequest

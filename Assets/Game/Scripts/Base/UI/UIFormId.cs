@@ -28,5 +28,10 @@ namespace Game
         /// 关于。
         /// </summary>
         AboutForm = 102,
+
+        /// <summary>
+        /// 菜单窗口
+        /// </summary>
+        MenuForm = 100,
     }
 }

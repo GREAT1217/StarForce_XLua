@@ -1,16 +1,14 @@
-﻿using GameFramework;
-
-namespace Game
+﻿namespace Game
 {
     /// <summary>
     /// 自定义的底层与热更层传递的数据。
     /// </summary>
-    public sealed class HotfixUserData
+    public sealed class XLuaUserData
     {
         /// <summary>
         /// 热更逻辑类型名。
         /// </summary>
-        public string HotfixTypeName
+        public string LuaScriptName
         {
             get;
         }
@@ -26,7 +24,7 @@ namespace Game
         /// <summary>
         /// 底层逻辑实例。
         /// </summary>
-        public object HotfixLogic
+        public object BaseLogic
         {
             get;
             set;
@@ -35,11 +33,11 @@ namespace Game
         /// <summary>
         /// 自定义的底层与热更层传递的数据。
         /// </summary>
-        /// <param name="hotLogicTypeName">热更逻辑类型名。</param>
+        /// <param name="luaScriptName">热更逻辑类型名。</param>
         /// <param name="userData">用户自定义数据。</param>
-        public HotfixUserData(string hotLogicTypeName, object userData)
+        public XLuaUserData(string luaScriptName, object userData)
         {
-            HotfixTypeName = hotLogicTypeName;
+            LuaScriptName = luaScriptName;
             UserData = userData;
         }
     }

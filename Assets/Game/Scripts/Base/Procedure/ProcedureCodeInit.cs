@@ -16,6 +16,7 @@ namespace Game
         {
             base.OnEnter(procedureOwner);
 
+            GameEntry.XLua.InitLuaEnv();
             GameEntry.Resource.LoadAsset(AssetUtility.GetConfigAsset("LuaScriptCollection", false), new LoadAssetCallbacks(OnConfigLoadedSuccess, OnAssetLoadedFail));
         }
 
@@ -43,19 +44,19 @@ namespace Game
                 }
             }
 
+            GameEntry.XLua.DoLuaScript("Define/Define");
+            
             ChangeState<ProcedurePreload>(procedureOwner);
         }
 
         private void OnConfigLoadedSuccess(string assetName, object asset, float duration, object userdata)
         {
-            TextAsset config = (TextAsset)asset;
-            Debug.Log(config.text);
+            TextAsset config = (TextAsset) asset;
             List<string> luaScriptNames = Utility.Json.ToObject<List<string>>(config.text);
             LoadAssetCallbacks callbacks = new LoadAssetCallbacks(OnLuaScriptsLoadedSuccess, OnAssetLoadedFail);
             m_LoadedFlag = new Dictionary<string, bool>();
             foreach (string luaScriptName in luaScriptNames)
             {
-                Debug.Log(luaScriptName);
                 m_LoadedFlag.Add(luaScriptName, false);
                 GameEntry.Resource.LoadAsset(AssetUtility.GetLuaScriptAsset(luaScriptName), callbacks, luaScriptName);
             }
@@ -65,7 +66,7 @@ namespace Game
         private void OnLuaScriptsLoadedSuccess(string assetName, object asset, float duration, object userdata)
         {
             string luaScriptName = userdata.ToString();
-            TextAsset luaScripts = (TextAsset)asset;
+            TextAsset luaScripts = (TextAsset) asset;
             GameEntry.XLua.CacheLuaScripts(luaScriptName, luaScripts.text);
             m_LoadedFlag[luaScriptName] = true;
             Log.Info("Load Lua Script '{0}' OK.", assetName);

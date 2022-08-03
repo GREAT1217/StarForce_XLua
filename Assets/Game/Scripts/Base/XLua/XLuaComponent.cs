@@ -14,7 +14,7 @@ namespace Game
         private LuaFunction m_Update;
         private LuaFunction m_Shutdown;
 
-        private void Start()
+        public void InitLuaEnv()
         {
             m_LuaEnv = new LuaEnv();
             m_LuaEnv.AddLoader(CustomLoader);
@@ -45,14 +45,14 @@ namespace Game
             }
         }
 
-        private void OnDestroy()
-        {
-            if (m_LuaEnv != null)
-            {
-                m_LuaEnv.Dispose();
-                m_LuaEnv = null;
-            }
-        }
+        // private void OnDestroy()
+        // {
+        //     if (m_LuaEnv != null)
+        //     {
+        //         m_LuaEnv.Dispose();
+        //         m_LuaEnv = null;
+        //     }
+        // }
 
         public void CacheLuaScripts(string luaScriptName, string luaScript)
         {
@@ -123,35 +123,6 @@ namespace Game
             {
                 Log.Error("Lua table is null, Lua function '{0}' invoke failed.", functionName);
             }
-        }
-
-        public void StartXLua(XLuaProcedureManager procedureManager)
-        {
-            DoLuaScript("GameHotfixEntry");
-            m_LuaEntry = GetLuaTable("GameHotfixEntry", "GameHotfixEntry");
-            m_Update = GetLuaFunction(m_LuaEntry, "Update");
-            m_Shutdown = GetLuaFunction(m_LuaEntry, "Shutdown");
-            InvokeLuaFunction(m_LuaEntry, "Start", m_LuaEntry, procedureManager);
-        }
-
-        public void UpdateXLua(float elapseSeconds, float realElapseSeconds)
-        {
-            if (m_Update == null)
-            {
-                return;
-            }
-
-            m_Update.Call(m_LuaEntry, elapseSeconds, realElapseSeconds);
-        }
-
-        public void DestroyXLua()
-        {
-            if (m_Shutdown == null)
-            {
-                return;
-            }
-
-            m_Update.Call(m_LuaEntry);
         }
     }
 }

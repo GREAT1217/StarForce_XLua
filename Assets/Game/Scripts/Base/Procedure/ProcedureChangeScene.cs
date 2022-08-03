@@ -78,7 +78,7 @@ namespace Game
 
             if (m_ChangeToMenu)
             {
-                ChangeState<XLuaProcedureManager>(procedureOwner);
+                ChangeState<ProcedureMenu>(procedureOwner);
             }
             else
             {

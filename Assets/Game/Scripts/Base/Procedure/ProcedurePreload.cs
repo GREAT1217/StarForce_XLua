@@ -68,10 +68,8 @@ namespace Game
                 }
             }
             
-            // procedureOwner.SetData<VarInt32>("NextSceneId", GameEntry.Config.GetInt("Scene.Menu"));
-            // ChangeState<ProcedureChangeScene>(procedureOwner);
-
-            ChangeState<XLuaProcedureManager>(procedureOwner);
+            procedureOwner.SetData<VarInt32>("NextSceneId", GameEntry.Config.GetInt("Scene.Menu"));
+            ChangeState<ProcedureChangeScene>(procedureOwner);
         }
 
         private void PreloadResources()

@@ -1,7 +1,0 @@
---- 界面编号。
-LuaUIFormId {
-    --- 主菜单。
-    MenuForm=10000,
-}
-
-return LuaUIFormId
