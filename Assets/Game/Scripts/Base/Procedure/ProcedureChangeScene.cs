@@ -4,9 +4,9 @@ using GameFramework.Fsm;
 using GameFramework.Procedure;
 using UnityGameFramework.Runtime;
 
-namespace Game.Hotfix
+namespace Game
 {
-    public class ProcedureChangeScene : HotfixProcedure
+    public class ProcedureChangeScene : ProcedureBase
     {
         private const int MenuSceneId = 1;
 
@@ -14,7 +14,7 @@ namespace Game.Hotfix
         private bool m_IsChangeSceneComplete = false;
         private int m_BackgroundMusicId = 0;
 
-        public override void OnEnter(IFsm<IProcedureManager> procedureOwner)
+        protected override void OnEnter(IFsm<IProcedureManager> procedureOwner)
         {
             base.OnEnter(procedureOwner);
 
@@ -57,7 +57,7 @@ namespace Game.Hotfix
             m_BackgroundMusicId = drScene.BackgroundMusicId;
         }
 
-        public override void OnLeave(IFsm<IProcedureManager> procedureOwner, bool isShutdown)
+        protected override void OnLeave(IFsm<IProcedureManager> procedureOwner, bool isShutdown)
         {
             GameEntry.Event.Unsubscribe(LoadSceneSuccessEventArgs.EventId, OnLoadSceneSuccess);
             GameEntry.Event.Unsubscribe(LoadSceneFailureEventArgs.EventId, OnLoadSceneFailure);
@@ -67,7 +67,7 @@ namespace Game.Hotfix
             base.OnLeave(procedureOwner, isShutdown);
         }
 
-        public override void OnUpdate(IFsm<IProcedureManager> procedureOwner, float elapseSeconds, float realElapseSeconds)
+        protected override void OnUpdate(IFsm<IProcedureManager> procedureOwner, float elapseSeconds, float realElapseSeconds)
         {
             base.OnUpdate(procedureOwner, elapseSeconds, realElapseSeconds);
 
@@ -78,11 +78,11 @@ namespace Game.Hotfix
 
             if (m_ChangeToMenu)
             {
-                GameHotfixEntry.ChangeHotfixProcedure<ProcedureMenu>(procedureOwner);
+                ChangeState<XLuaProcedureManager>(procedureOwner);
             }
             else
             {
-                GameHotfixEntry.ChangeHotfixProcedure<ProcedureMain>(procedureOwner);
+                ChangeState<ProcedureMain>(procedureOwner);
             }
         }
 

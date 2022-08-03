@@ -19,11 +19,13 @@ end
 
 --- 界面初始化。
 function this:OnInit(userData)
+    Log.Info("Lua Form init start.")
     if userData == nil then
         Log.Error("HotfixUserData is null")
         return
     end
     hotfixForm = userData.HotfixLogic
+    Log.Info("Lua Form init complete.")
 end
 
 --- 界面回收。
@@ -66,4 +68,5 @@ end
 function this:OnDepthChanged(uiGroupDepth, depthInUIGroup)
 end
 
+print("=====================LuaForm")
 return LuaForm

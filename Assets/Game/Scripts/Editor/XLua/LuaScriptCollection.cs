@@ -8,11 +8,11 @@ using UnityEngine;
 
 namespace Game.Editor
 {
-    public class LuaScriptCollection
+    public static class LuaScriptCollection
     {
         private const string RootDirectory = "Assets/Game/Scripts/Hotfix";
 
-        [MenuItem("Xlua/GenerateCollection")]
+        [MenuItem("Game/Generate XLua Collection")]
         public static void Generate()
         {
             if (!Directory.Exists(RootDirectory))

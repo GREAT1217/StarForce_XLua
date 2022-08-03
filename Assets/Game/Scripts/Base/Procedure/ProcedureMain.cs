@@ -3,9 +3,9 @@ using GameFramework.Fsm;
 using GameFramework.Procedure;
 using UnityGameFramework.Runtime;
 
-namespace Game.Hotfix
+namespace Game
 {
-    public class ProcedureMain : HotfixProcedure
+    public class ProcedureMain : ProcedureBase
     {
         private const float GameOverDelayedSeconds = 2f;
 
@@ -14,21 +14,21 @@ namespace Game.Hotfix
         private bool m_GotoMenu = false;
         private float m_GotoMenuDelaySeconds = 0f;
 
-        public override void OnInit(IFsm<IProcedureManager> procedureOwner)
+        protected override void OnInit(IFsm<IProcedureManager> procedureOwner)
         {
             base.OnInit(procedureOwner);
 
-            m_Games.Add((byte)GameMode.Survival, new SurvivalGame());
+            m_Games.Add((byte) GameMode.Survival, new SurvivalGame());
         }
 
-        public override void OnDestroy(IFsm<IProcedureManager> procedureOwner)
+        protected override void OnDestroy(IFsm<IProcedureManager> procedureOwner)
         {
             base.OnDestroy(procedureOwner);
 
             m_Games.Clear();
         }
 
-        public override void OnEnter(IFsm<IProcedureManager> procedureOwner)
+        protected override void OnEnter(IFsm<IProcedureManager> procedureOwner)
         {
             base.OnEnter(procedureOwner);
 
@@ -38,7 +38,7 @@ namespace Game.Hotfix
             m_CurrentGame.Initialize();
         }
 
-        public override void OnLeave(IFsm<IProcedureManager> procedureOwner, bool isShutdown)
+        protected override void OnLeave(IFsm<IProcedureManager> procedureOwner, bool isShutdown)
         {
             if (m_CurrentGame != null)
             {
@@ -49,7 +49,7 @@ namespace Game.Hotfix
             base.OnLeave(procedureOwner, isShutdown);
         }
 
-        public override void OnUpdate(IFsm<IProcedureManager> procedureOwner, float elapseSeconds, float realElapseSeconds)
+        protected override void OnUpdate(IFsm<IProcedureManager> procedureOwner, float elapseSeconds, float realElapseSeconds)
         {
             base.OnUpdate(procedureOwner, elapseSeconds, realElapseSeconds);
 
@@ -69,7 +69,7 @@ namespace Game.Hotfix
             if (m_GotoMenuDelaySeconds >= GameOverDelayedSeconds)
             {
                 procedureOwner.SetData<VarInt32>("NextSceneId", GameEntry.Config.GetInt("Scene.Menu"));
-                GameHotfixEntry.ChangeHotfixProcedure<ProcedureChangeScene>(procedureOwner);
+                ChangeState<ProcedureChangeScene>(procedureOwner);
             }
         }
     }

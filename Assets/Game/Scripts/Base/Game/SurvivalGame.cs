@@ -9,7 +9,7 @@ using GameFramework;
 using GameFramework.DataTable;
 using UnityEngine;
 
-namespace Game.Hotfix
+namespace Game
 {
     public class SurvivalGame : GameBase
     {

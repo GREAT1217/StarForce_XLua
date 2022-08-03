@@ -1,10 +1,10 @@
-﻿using UnityGameFramework.Runtime;
+﻿using GameExtension;
 using XLua;
 
 namespace Game
 {
     [LuaCallCSharp]
-    public class HotfixForm : UGuiForm
+    public class XLuaForm : UGuiForm
     {
         // 热更新层的方法缓存。
         private LuaFunction m_OnRecycle;
@@ -27,7 +27,7 @@ namespace Game
             private set;
         }
 
-        public ReferenceCollector ReferenceCollector
+        public ComponentCollection Components
         {
             get;
             private set;
@@ -43,17 +43,12 @@ namespace Game
 
             base.OnInit(data.UserData);
 
-            ReferenceCollector = GetComponent<ReferenceCollector>();
+            Components = GetComponent<ComponentCollection>();
 
             // 获取热更新层的实例。
-            string luaName = data.HotfixTypeName;
             string tableName = data.HotfixTypeName.Substring(data.HotfixTypeName.LastIndexOf('/') + 1);
-            GameEntry.XLua.DoLuaScript(luaName);
-            LuaForm = GameEntry.XLua.GetLuaTable(luaName, tableName);
-            // Action luaAwake = scriptEnv.Get<Action>("awake");
-            // scriptEnv.Get("start", out luaStart);
-            // scriptEnv.Get("update", out luaUpdate);
-            // scriptEnv.Get("ondestroy", out luaOnDestroy);
+            GameEntry.XLua.DoLuaScript(data.HotfixTypeName);
+            LuaForm = GameEntry.XLua.GetLuaTable(data.HotfixTypeName, tableName);
 
             // 获取热更新层的方法并缓存。
             m_OnRecycle = GameEntry.XLua.GetLuaFunction(LuaForm, "OnRecycle");

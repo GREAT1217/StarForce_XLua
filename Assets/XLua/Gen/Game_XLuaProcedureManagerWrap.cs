@@ -15,19 +15,19 @@ using System.Collections.Generic;
 namespace XLua.CSObjectWrap
 {
     using Utils = XLua.Utils;
-    public class GameHotfixFormWrap 
+    public class GameXLuaProcedureManagerWrap 
     {
         public static void __Register(RealStatePtr L)
         {
 			ObjectTranslator translator = ObjectTranslatorPool.Instance.Find(L);
-			System.Type type = typeof(Game.XLuaForm);
-			Utils.BeginObjectRegister(type, L, translator, 0, 0, 2, 0);
+			System.Type type = typeof(Game.XLuaProcedureManager);
+			Utils.BeginObjectRegister(type, L, translator, 0, 2, 0, 0);
+			
+			Utils.RegisterFunc(L, Utils.METHOD_IDX, "StartXLuaProcedure", _m_StartXLuaProcedure);
+			Utils.RegisterFunc(L, Utils.METHOD_IDX, "ChangeXLuaProcedure", _m_ChangeXLuaProcedure);
 			
 			
 			
-			Utils.RegisterFunc(L, Utils.GETTER_IDX, "LuaForm", _g_get_LuaForm);
-            Utils.RegisterFunc(L, Utils.GETTER_IDX, "Components", _g_get_Components);
-            
 			
 			
 			Utils.EndObjectRegister(type, L, translator, null, null,
@@ -52,7 +52,7 @@ namespace XLua.CSObjectWrap
 				if(LuaAPI.lua_gettop(L) == 1)
 				{
 					
-					var gen_ret = new Game.XLuaForm();
+					var gen_ret = new Game.XLuaProcedureManager();
 					translator.Push(L, gen_ret);
                     
 					return 1;
@@ -62,7 +62,7 @@ namespace XLua.CSObjectWrap
 			catch(System.Exception gen_e) {
 				return LuaAPI.luaL_error(L, "c# exception:" + gen_e);
 			}
-            return LuaAPI.luaL_error(L, "invalid arguments to Game.HotfixForm constructor!");
+            return LuaAPI.luaL_error(L, "invalid arguments to Game.XLuaProcedureManager constructor!");
             
         }
         
@@ -73,36 +73,65 @@ namespace XLua.CSObjectWrap
         
         
         
-        
-        
-        
         [MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
-        static int _g_get_LuaForm(RealStatePtr L)
+        static int _m_StartXLuaProcedure(RealStatePtr L)
         {
 		    try {
+            
                 ObjectTranslator translator = ObjectTranslatorPool.Instance.Find(L);
-			
-                Game.XLuaForm gen_to_be_invoked = (Game.XLuaForm)translator.FastGetCSObj(L, 1);
-                translator.Push(L, gen_to_be_invoked.LuaForm);
+            
+            
+                Game.XLuaProcedureManager gen_to_be_invoked = (Game.XLuaProcedureManager)translator.FastGetCSObj(L, 1);
+            
+            
+                
+                {
+                    string _hotfixTypeName = LuaAPI.lua_tostring(L, 2);
+                    
+                    gen_to_be_invoked.StartXLuaProcedure( _hotfixTypeName );
+                    
+                    
+                    
+                    return 0;
+                }
+                
             } catch(System.Exception gen_e) {
                 return LuaAPI.luaL_error(L, "c# exception:" + gen_e);
             }
-            return 1;
+            
         }
         
         [MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
-        static int _g_get_Components(RealStatePtr L)
+        static int _m_ChangeXLuaProcedure(RealStatePtr L)
         {
 		    try {
+            
                 ObjectTranslator translator = ObjectTranslatorPool.Instance.Find(L);
-			
-                Game.XLuaForm gen_to_be_invoked = (Game.XLuaForm)translator.FastGetCSObj(L, 1);
-                translator.Push(L, gen_to_be_invoked.Components);
+            
+            
+                Game.XLuaProcedureManager gen_to_be_invoked = (Game.XLuaProcedureManager)translator.FastGetCSObj(L, 1);
+            
+            
+                
+                {
+                    GameFramework.Fsm.IFsm<GameFramework.Procedure.IProcedureManager> _procedureOwner = (GameFramework.Fsm.IFsm<GameFramework.Procedure.IProcedureManager>)translator.GetObject(L, 2, typeof(GameFramework.Fsm.IFsm<GameFramework.Procedure.IProcedureManager>));
+                    string _hotfixTypeName = LuaAPI.lua_tostring(L, 3);
+                    
+                    gen_to_be_invoked.ChangeXLuaProcedure( _procedureOwner, _hotfixTypeName );
+                    
+                    
+                    
+                    return 0;
+                }
+                
             } catch(System.Exception gen_e) {
                 return LuaAPI.luaL_error(L, "c# exception:" + gen_e);
             }
-            return 1;
+            
         }
+        
+        
+        
         
         
         

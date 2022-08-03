@@ -1,0 +1,22 @@
+﻿LuaProcedure = require("Procedure/LuaProcedure")
+
+LuaProcedure:subType("ProcedureMenu")
+local this = ProcedureMenu
+
+this.m_StartGame = false
+this.m_MenuForm = nil
+
+function this:StartGame()
+    self.StartGame = true
+end
+
+function this:OnEnter(procedureOwner)
+    self.base.OnEnter(self, procedureOwner)
+
+    -- todo event
+    
+    self.m_StartGame = false;
+    CS.Game.GameEntry.UI:OpenHotfixUIForm("UI/UIForm/MenuForm", 1000, self)
+
+    Log.Info("Menu Procedure Start")
+end 

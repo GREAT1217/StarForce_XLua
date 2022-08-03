@@ -43,13 +43,13 @@ namespace Game.Hotfix
         {
             base.OnInit(userData);
 
-            ReferenceCollector collector = HotfixForm.ReferenceCollector;
-            m_QuitButton = collector.GetGO("bt_Quit");
-            (m_QuitButton.GetComponent(typeof(CommonButton)) as CommonButton).OnClick.AddListener(OnQuitButtonClick);
-            m_QuitButton.SetActive(Application.platform != RuntimePlatform.IPhonePlayer);
-            (collector.Get("bt_About", typeof(CommonButton)) as CommonButton).OnClick.AddListener(OnAboutButtonClick);
-            (collector.Get("bt_Setting", typeof(CommonButton)) as CommonButton).OnClick.AddListener(OnSettingButtonClick);
-            (collector.Get("bt_Start", typeof(CommonButton)) as CommonButton).OnClick.AddListener(OnStartButtonClick);
+            // ReferenceCollector collector = HotfixForm.ComponentCollection;
+            // m_QuitButton = collector.GetGO("bt_Quit");
+            // (m_QuitButton.GetComponent(typeof(CommonButton)) as CommonButton).OnClick.AddListener(OnQuitButtonClick);
+            // m_QuitButton.SetActive(Application.platform != RuntimePlatform.IPhonePlayer);
+            // (collector.Get("bt_About", typeof(CommonButton)) as CommonButton).OnClick.AddListener(OnAboutButtonClick);
+            // (collector.Get("bt_Setting", typeof(CommonButton)) as CommonButton).OnClick.AddListener(OnSettingButtonClick);
+            // (collector.Get("bt_Start", typeof(CommonButton)) as CommonButton).OnClick.AddListener(OnStartButtonClick);
         }
 
 #if UNITY_2017_3_OR_NEWER

@@ -9,41 +9,49 @@ this.m_ProcedureMenu = nil
 
 -- 方法
 function this:OnStartButtonClick()
-    m_ProcedureMenu.StartGame()
+    m_ProcedureMenu:StartGame()
 end
 
 function this:OnSettingButtonClick()
-    CS.Game.GameEntry.UI.OpenUIForm(CS.Game.UIFormId.SettingForm)
+    CS.Game.GameEntry.UI:OpenUIForm(CS.Game.UIFormId.SettingForm)
 end
 
 function this:OnAboutButtonClick()
-    CS.Game.GameEntry.UI.OpenUIForm(CS.Game.UIFormId.AboutForm)
+    CS.Game.GameEntry.UI:OpenUIForm(CS.Game.UIFormId.AboutForm)
 end
 
 function this:OnQuitButtonClick()
     local dialogParams = CS.Game.DialogParams()
-    -- 待补充
+    -- todo 待补充
 end
 
 function this:OnInit(userData)
     self.base.OnInit(self, userData)
-    local reference = hotfixForm.ReferenceController
-    quitButton = reference.GetGO("bt_Quit")
-    quitButton:GetComponent(type(CS.UnityEngine.UI.Button)).OnClick.AddListener(OnQuitButtonClick)
+    startButton = hotfixForm.Components:GetButton(0)
+    startButton.onClick:AddListener(self.OnStartButtonClick)
+    settingButton = hotfixForm.Components:GetButton(1)
+    settingButton.onClick:AddListener(self.OnSettingButtonClick)
+    aboutButton = hotfixForm.Components:GetButton(2)
+    aboutButton.onClick:AddListener(self.OnAboutButtonClick)
+    quitButton = hotfixForm.Components:GetButton(3)
+    quitButton.onClick:AddListener(self.OnQuitButtonClick)
+    Log.Info("Menu Form Init complete.")
 end
 
 function this:OnOpen(userData)
-    self.base.OnOpen(self, userData)
+    self.base.OnOpen(userData)
     if userData == nil then
         Log.Error("HotfixUserData is null.")
         return
     end
 
     m_ProcedureMenu = userData.UserData
-    if m_ProcedureMenu == nil then
-        -- Log.Error("ProcedureMenu is invalid when open MenuForm.")
+    if m_ProcedureMenu == nil then 
+        Log.Error("ProcedureMenu is invalid when open MenuForm.")
         return
     end
+
+    Log.Info("Menu Form Init complete.")
 end
 
 function this:OnClose(isShutDown, userData)

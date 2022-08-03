@@ -1,5 +1,0 @@
---- LuaUI扩展
-function OpenLuaUIForm(luaUIFormId, luaUIFormName, userdata)
-    local hotfixUserData = CS.Game.HotFixUserData("Game.Hotfix." + luaUIFormName, userdata)
-    CS.Game.GameEntry.UI.OpenUIForm(luaUIFormId, hotfixUserData)
-end

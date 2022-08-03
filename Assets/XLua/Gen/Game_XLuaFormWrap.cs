@@ -15,7 +15,7 @@ using System.Collections.Generic;
 namespace XLua.CSObjectWrap
 {
     using Utils = XLua.Utils;
-    public class GameHotfixFormWrap 
+    public class GameXLuaFormWrap 
     {
         public static void __Register(RealStatePtr L)
         {
@@ -62,7 +62,7 @@ namespace XLua.CSObjectWrap
 			catch(System.Exception gen_e) {
 				return LuaAPI.luaL_error(L, "c# exception:" + gen_e);
 			}
-            return LuaAPI.luaL_error(L, "invalid arguments to Game.HotfixForm constructor!");
+            return LuaAPI.luaL_error(L, "invalid arguments to Game.XLuaForm constructor!");
             
         }
         

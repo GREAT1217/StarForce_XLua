@@ -71,7 +71,7 @@ namespace Game
             // procedureOwner.SetData<VarInt32>("NextSceneId", GameEntry.Config.GetInt("Scene.Menu"));
             // ChangeState<ProcedureChangeScene>(procedureOwner);
 
-            ChangeState<ProcedureHotfixManager>(procedureOwner);
+            ChangeState<XLuaProcedureManager>(procedureOwner);
         }
 
         private void PreloadResources()

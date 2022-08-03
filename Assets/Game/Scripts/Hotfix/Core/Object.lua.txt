@@ -34,33 +34,27 @@ function ObjectBase:Move()
     print("move")
 end
 
--- 实例化对象
-local object1 = ObjectBase:new()
-print("object1==" .. object1.posY)
-object1:Move()
-print("object1==" .. object1.posY)
-
-local object2 = ObjectBase:new()
-print("Object2==" .. object2.posY)
-object2:Move()
-print("Object2==" .. object2.posY)
-
 -- 声明子类
+ObjectBase:subType("PlayerBase")
+function PlayerBase:Move(object)
+    self.base.Move(object);
+end
+
+-- 声明子子类
 ObjectBase:subType("Player")
-function Player:Move()
-    -- 调用父类方法，第一个参数传入自己
-    self.base.Move(self);
+function Player:Move(object)
+    self.base.Move(object);
 end
 
 -- 实例化子类对象
 local player1 = Player:new()
 print("Player1==" .. player1.posY)
-player1:Move()
+player1:Move(player1)
 print("Player1==" .. player1.posY)
 
 local player2 = Player:new()
 print("Player2==" .. player2.posY)
-player2:Move()
+player2:Move(player2)
 print("Player2==" .. player2.posY)
 
 print("Test=======================End")

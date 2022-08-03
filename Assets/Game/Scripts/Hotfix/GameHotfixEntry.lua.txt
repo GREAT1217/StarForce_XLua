@@ -1,8 +1,22 @@
 ﻿Log = CS.Game.XLuaLog
 
-function StartHotfix()
+GameHotfixEntry = {}
+local this = GameHotfixEntry
+
+this.XLuaProcedureManager = nil
+
+function this:Start(procedureManager)
     print("Start hotfix ...")
-    CS.Game.GameEntry.UI:OpenHotfixUIForm("UI/UIForm/MenuForm", 1000)
+    XLuaProcedureManager = procedureManager
+    XLuaProcedureManager:StartXLuaProcedure("Procedure/ProcedureMenu")
 end
 
-StartHotfix()
+function this:Update()
+
+end
+
+function this:Shutdown()
+
+end
+
+return GameHotfixEntry

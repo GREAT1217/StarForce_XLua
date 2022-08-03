@@ -7,7 +7,7 @@ namespace Game.Hotfix
         /// <summary>
         /// 底层界面逻辑。
         /// </summary>
-        protected HotfixForm HotfixForm
+        protected XLuaForm XLuaForm
         {
             get;
             private set;
@@ -15,12 +15,12 @@ namespace Game.Hotfix
 
         public void Close()
         {
-            HotfixForm.Close(false);
+            XLuaForm.Close(false);
         }
 
         public void Close(bool ignoreFade)
         {
-            HotfixForm.Close(ignoreFade);
+            XLuaForm.Close(ignoreFade);
         }
 
         /// <summary>
@@ -36,7 +36,7 @@ namespace Game.Hotfix
                 return;
             }
 
-            HotfixForm = data.HotfixLogic as HotfixForm;
+            XLuaForm = data.HotfixLogic as XLuaForm;
         }
 
         /// <summary>

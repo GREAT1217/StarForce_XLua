@@ -8,7 +8,7 @@ namespace Game.Hotfix
     public class ProcedureMenu : HotfixProcedure
     {
         private bool m_StartGame = false;
-        private HotfixForm m_MenuForm = null;
+        private XLuaForm m_MenuForm = null;
 
         public void StartGame()
         {
@@ -46,7 +46,7 @@ namespace Game.Hotfix
             {
                 procedureOwner.SetData<VarInt32>("NextSceneId", GameEntry.Config.GetInt("Scene.Main"));
                 procedureOwner.SetData<VarByte>("GameMode", (byte)GameMode.Survival);
-                GameHotfixEntry.ChangeHotfixProcedure<ProcedureChangeScene>(procedureOwner);
+                //GameHotfixEntry.ChangeHotfixProcedure<ProcedureChangeScene>(procedureOwner);
             }
         }
 
@@ -59,7 +59,7 @@ namespace Game.Hotfix
                 return;
             }
 
-            m_MenuForm = userData.HotfixLogic as HotfixForm;
+            m_MenuForm = userData.HotfixLogic as XLuaForm;
         }
     }
 }

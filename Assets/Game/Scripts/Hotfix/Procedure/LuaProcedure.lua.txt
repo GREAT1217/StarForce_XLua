@@ -1,0 +1,22 @@
+﻿Object = require("Core/Object")
+
+--- LuaProcedure 基类。
+Object:subType("LuaProcedure")
+local this = LuaProcedure
+
+function this:OnInit(procedureOwner)
+end
+
+function this:OnDestroy(procedureOwner)
+end
+
+function this:OnEnter(procedureOwner)
+end
+
+function this:OnLeave(procedureOwner, isShutdown)
+end
+
+function this:OnUpdate(procedureOwner, elapseSecond, realElapseSecond)
+end
+
+return LuaProcedure
