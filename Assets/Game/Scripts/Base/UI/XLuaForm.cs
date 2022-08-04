@@ -3,7 +3,6 @@ using XLua;
 
 namespace Game
 {
-    [LuaCallCSharp]
     public class XLuaForm : UGuiForm
     {
         // 热更新层的方法缓存。

@@ -1,1 +1,1 @@
-["Define/Define","Define/Object","UI/LuaForm","UI/UIForm/MenuForm"]
+["Define/Define","Define/Object","UI/LuaForm","UI/UIForm/AboutForm","UI/UIForm/MenuForm","UI/UIForm/SettingForm"]

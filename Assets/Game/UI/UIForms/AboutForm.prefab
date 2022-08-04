@@ -59,7 +59,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_RaycastTarget: 1
+  m_RaycastTarget: 0
   m_Maskable: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
@@ -137,7 +137,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_RaycastTarget: 1
+  m_RaycastTarget: 0
   m_Maskable: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
@@ -151,7 +151,7 @@ MonoBehaviour:
     m_MaxSize: 300
     m_Alignment: 4
     m_AlignByGeometry: 0
-    m_RichText: 1
+    m_RichText: 0
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 1
     m_LineSpacing: 1.2
@@ -215,7 +215,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_RaycastTarget: 1
+  m_RaycastTarget: 0
   m_Maskable: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
@@ -246,7 +246,7 @@ GameObject:
   - component: {fileID: 11480240}
   - component: {fileID: 11405796}
   m_Layer: 5
-  m_Name: Content
+  m_Name: Rect_Content
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -376,7 +376,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_RaycastTarget: 1
+  m_RaycastTarget: 0
   m_Maskable: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
@@ -546,7 +546,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 9143889980051954763}
+      - m_Target: {fileID: 1303508598027706472}
         m_MethodName: PlayUISound
         m_Mode: 3
         m_Arguments:
@@ -557,7 +557,7 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-      - m_Target: {fileID: 9143889980051954763}
+      - m_Target: {fileID: 1303508598027706472}
         m_MethodName: Close
         m_Mode: 1
         m_Arguments:
@@ -630,7 +630,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_RaycastTarget: 1
+  m_RaycastTarget: 0
   m_Maskable: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
@@ -644,7 +644,7 @@ MonoBehaviour:
     m_MaxSize: 300
     m_Alignment: 4
     m_AlignByGeometry: 0
-    m_RichText: 1
+    m_RichText: 0
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 1
     m_LineSpacing: 1.2
@@ -708,7 +708,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_RaycastTarget: 1
+  m_RaycastTarget: 0
   m_Maskable: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
@@ -738,7 +738,8 @@ GameObject:
   - component: {fileID: 22455944}
   - component: {fileID: 22254414}
   - component: {fileID: 22372286}
-  - component: {fileID: 9143889980051954763}
+  - component: {fileID: 1303508598027706472}
+  - component: {fileID: 1781119436401764184}
   m_Layer: 5
   m_Name: AboutForm
   m_TagString: Untagged
@@ -796,7 +797,7 @@ Canvas:
   m_SortingLayerID: 0
   m_SortingOrder: 0
   m_TargetDisplay: 0
---- !u!114 &9143889980051954763
+--- !u!114 &1303508598027706472
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -805,8 +806,32 @@ MonoBehaviour:
   m_GameObject: {fileID: 193354}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 42b1cdcb774776940adf1d724191a8d3, type: 3}
+  m_Script: {fileID: 11500000, guid: a7f832fa91d84254b5f51cc3f6356bd0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_Transform: {fileID: 22456236}
-  m_ScrollSpeed: 100
+--- !u!114 &1781119436401764184
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 193354}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d5100889a0684c6184c03ad3919f4ec2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Setup: 1
+  m_CollectorTypeName: GameExtension.Editor.DefaultComponentCollector
+  m_FieldNamePrefix: m_
+  m_FieldNameByType: 1
+  m_FieldNames:
+  - m_ContentRectTransform
+  m_FieldComponents:
+  - {fileID: 22456236}
+  m_GeneratorTypeName: GameExtension.Editor.DefaultCollectionGenerator
+  m_NameSpace: Game
+  m_ClassName: AboutForm
+  m_CodeSavePath: Assets
+  m_Components:
+  - {fileID: 22456236}

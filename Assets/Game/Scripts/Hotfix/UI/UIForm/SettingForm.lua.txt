@@ -1,0 +1,172 @@
+-- 设置窗口
+LuaForm:subType("SettingForm")
+local this = SettingForm
+
+-- 字段
+local m_MusicMuteToggle
+local m_MusicVolumeSlider
+local m_SoundMuteToggle
+local m_SoundVolumeSlider
+local m_UISoundMuteToggle
+local m_UISoundVolumeSlider
+local m_LanguageTipsCanvasGroup
+local m_EnglishToggle
+local m_ChineseSimplifiedToggle
+local m_ChineseTraditionalToggle
+local m_KoreanToggle
+local m_SelectedLanguage
+
+-- 私有方法
+local function OnMusicMuteChanged(isOn)
+    Sound:Mute("Music", not isOn)
+    m_MusicVolumeSlider.gameObject:SetActive(isOn)
+end
+
+local function OnMusicVolumeChanged(volume)
+    Sound:SetVolume("Music", volume)
+end
+
+local function OnSoundMuteChanged(isOn)
+    Sound:Mute("Sound", not isOn)
+    m_SoundVolumeSlider.gameObject:SetActive(isOn)
+end
+
+local function OnSoundVolumeChanged(volume)
+    Sound:SetVolume("Sound", volume)
+end
+
+local function OnUISoundMuteChanged(isOn)
+    Sound:Mute("UISound", not isOn)
+    m_UISoundVolumeSlider.gameObject:SetActive(isOn)
+end
+
+local function OnUISoundVolumeChanged(volume)
+    Sound:SetVolume("UISound", volume)
+end
+
+local function RefreshLanguageTips()
+    m_LanguageTipsCanvasGroup.gameObject:SetActive(m_SelectedLanguage ~= Localization.Language)
+end
+
+local function OnEnglishSelected(isOn)
+    if (isOn == false) then
+        return
+    end
+
+    m_SelectedLanguage = Language.English
+    RefreshLanguageTips()
+end
+
+local function OnChineseSimplifiedSelected(isOn)
+    if (isOn == false) then
+        return
+    end
+
+    m_SelectedLanguage = Language.ChineseSimplified
+    RefreshLanguageTips()
+end
+
+local function OnChineseTraditionalSelected(isOn)
+    if (isOn == false) then
+        return
+    end
+
+    m_SelectedLanguage = Language.ChineseTraditional
+    RefreshLanguageTips()
+end
+
+local function OnKoreanSelected(isOn)
+    if (isOn == false) then
+        return
+    end
+
+    m_SelectedLanguage = Language.Korean
+    RefreshLanguageTips()
+end
+
+local function OnSubmitButtonClick()
+    if (m_SelectedLanguage == Localization.Language) then
+        this:Close()
+        return
+    end
+
+    Setting:SetString(CS.Game.Constant.Setting.Language, m_SelectedLanguage:ToString())
+    Setting:Save()
+
+    Sound:StopMusic()
+    Runtime.GameEntry.Shutdown(Runtime.ShutdownType.Restart)
+end
+
+-- 重写方法
+function this:OnInit(userData)
+    self.base.OnInit(self, userData)
+
+    m_MusicMuteToggle = self.baseForm.Components:GetToggle(0)
+    m_MusicMuteToggle.onValueChanged:AddListener(OnMusicMuteChanged)
+    m_MusicVolumeSlider = self.baseForm.Components:GetSlider(1)
+    m_MusicVolumeSlider.onValueChanged:AddListener(OnMusicVolumeChanged)
+
+    m_SoundMuteToggle = self.baseForm.Components:GetToggle(2)
+    m_SoundMuteToggle.onValueChanged:AddListener(OnSoundMuteChanged)
+    m_SoundVolumeSlider = self.baseForm.Components:GetSlider(3)
+    m_SoundVolumeSlider.onValueChanged:AddListener(OnSoundVolumeChanged)
+
+    m_UISoundMuteToggle = self.baseForm.Components:GetToggle(4)
+    m_UISoundMuteToggle.onValueChanged:AddListener(OnUISoundMuteChanged)
+    m_UISoundVolumeSlider = self.baseForm.Components:GetSlider(5)
+    m_UISoundVolumeSlider.onValueChanged:AddListener(OnUISoundVolumeChanged)
+
+    m_EnglishToggle = self.baseForm.Components:GetToggle(6)
+    m_EnglishToggle.onValueChanged:AddListener(OnEnglishSelected)
+    m_ChineseSimplifiedToggle = self.baseForm.Components:GetToggle(7)
+    m_ChineseSimplifiedToggle.onValueChanged:AddListener(OnChineseSimplifiedSelected)
+    m_ChineseTraditionalToggle = self.baseForm.Components:GetToggle(8)
+    m_ChineseTraditionalToggle.onValueChanged:AddListener(OnChineseTraditionalSelected)
+    m_KoreanToggle = self.baseForm.Components:GetToggle(9)
+    m_KoreanToggle.onValueChanged:AddListener(OnKoreanSelected)
+
+    m_LanguageTipsCanvasGroup = self.baseForm.Components:GetCanvasGroup(10)
+
+    local submitButton = self.baseForm.Components:GetButton(11)
+    submitButton.onClick:AddListener(OnSubmitButtonClick)
+end
+
+function this:OnOpen(userData)
+    self.base.OnOpen(self, userData)
+
+    m_MusicMuteToggle.isOn = not Sound:IsMuted("Music")
+    m_MusicVolumeSlider.value = Sound:GetVolume("Music")
+
+    m_SoundMuteToggle.isOn = not Sound:IsMuted("Sound")
+    m_SoundVolumeSlider.value = Sound:GetVolume("Sound")
+
+    m_UISoundMuteToggle.isOn = not Sound:IsMuted("UISound")
+    m_UISoundVolumeSlider.value = Sound:GetVolume("UISound")
+
+    m_SelectedLanguage = Localization.Language
+    if (m_SelectedLanguage == Language.English) then
+        m_EnglishToggle.isOn = true
+    elseif (m_SelectedLanguage == Language.ChineseSimplified) then
+        m_ChineseSimplifiedToggle.isOn = true
+    elseif (m_SelectedLanguage == Language.ChineseTraditional) then
+        m_ChineseTraditionalToggle.isOn = true
+    elseif (m_SelectedLanguage == Language.Korean) then
+        m_KoreanToggle, isOn = true
+    end
+
+    Log.Debug("-----" .. self.baseForm.gameObject.name)
+end
+
+function this:Resume()
+    Log.Debug("-----" .. self.baseForm.gameObject.name)
+end
+
+function this:OnUpdate(elapseSeconds, realElapseSeconds)
+    self.base.OnUpdate(self, elapseSeconds, realElapseSeconds)
+
+    if (m_LanguageTipsCanvasGroup.gameObject.activeSelf) then
+        m_LanguageTipsCanvasGroup.alpha = 0.5 + 0.5 * Unity.Mathf.Sin(Unity.Mathf.PI * Unity.Time.time)
+    end
+end
+
+return MenuForm

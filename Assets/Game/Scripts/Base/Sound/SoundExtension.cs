@@ -3,6 +3,7 @@ using GameFramework;
 using GameFramework.DataTable;
 using GameFramework.Sound;
 using UnityGameFramework.Runtime;
+using XLua;
 using Entity = Game.Entity;
 
 namespace Game

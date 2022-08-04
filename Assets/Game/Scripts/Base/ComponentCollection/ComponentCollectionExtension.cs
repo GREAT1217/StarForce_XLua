@@ -11,7 +11,6 @@ using XLua;
 
 namespace Game
 {
-    [LuaCallCSharp]
     public static class ComponentCollectionExtension
     {
         public static RectMask2D GetRectMask2D(this ComponentCollection componentCollection, int index)

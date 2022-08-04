@@ -36,25 +36,25 @@ end
 --
 ---- 声明子类
 --ObjectBase:subType("PlayerBase")
---function PlayerBase:Move(object)
---    self.base.Move(object);
+--function PlayerBase:Move()
+--    self.base.Move(self);
 --end
 --
 ---- 声明子子类
 --ObjectBase:subType("Player")
---function Player:Move(object)
---    self.base.Move(object);
+--function Player:Move()
+--    self.base.base.Move(self); -- 注意
 --end
 --
----- 实例化子类对象
+---- 实例化子子类对象
 --local player1 = Player:new()
 --print("Player1==" .. player1.posY)
---player1:Move(player1)
+--player1:Move()
 --print("Player1==" .. player1.posY)
 --
 --local player2 = Player:new()
 --print("Player2==" .. player2.posY)
---player2:Move(player2)
+--player2:Move()
 --print("Player2==" .. player2.posY)
 --
 --print("Test=======================End")

@@ -3,7 +3,6 @@ using XLua;
 
 namespace Game
 {
-    [LuaCallCSharp]
     public static class XLuaLog
     {
         public static void Debug(object message)

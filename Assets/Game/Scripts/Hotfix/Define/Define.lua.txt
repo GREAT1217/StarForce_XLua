@@ -1,7 +1,7 @@
-GameFramework = CS.UnityGameFramework.Runtime
-GameLogic = CS.Game
-
+Runtime = CS.UnityGameFramework.Runtime
 Log = CS.UnityGameFramework.Runtime.Log
+
+Language = CS.GameFramework.Localization.Language
 
 Config = CS.Game.GameEntry.Config
 DataNode = CS.Game.GameEntry.DataNode
@@ -20,3 +20,8 @@ Setting = CS.Game.GameEntry.Setting
 Sound = CS.Game.GameEntry.Sound
 UI = CS.Game.GameEntry.UI
 WebRequest = CS.Game.GameEntry.WebRequest
+
+Unity = CS.UnityEngine
+UGUI = CS.UnityEngine.UI
+
+LuaForm = require("UI/LuaForm")

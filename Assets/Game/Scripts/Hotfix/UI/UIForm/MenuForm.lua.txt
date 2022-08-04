@@ -1,52 +1,53 @@
-LuaForm = require("UI/LuaForm")
-
--- 菜单类
+-- 菜单界面
 LuaForm:subType("MenuForm")
 local this = MenuForm
 
 -- 字段
-this.m_ProcedureMenu = nil
+local m_ProcedureMenu = nil
 
--- 方法
-function this:OnStartButtonClick()
+-- 私有方法
+local function OnStartButtonClick()
     m_ProcedureMenu:StartGame()
 end
 
-function this:OnSettingButtonClick()
-   UI:OpenUIForm(CS.Game.UIFormId.SettingForm)
+local function OnSettingButtonClick()
+    UI:OpenXLuaForm("UI/UIForm/SettingForm", 101);
 end
 
-function this:OnAboutButtonClick()
-   UI:OpenUIForm(CS.Game.UIFormId.AboutForm)
+local function OnAboutButtonClick()
+    UI:OpenXLuaForm("UI/UIForm/AboutForm", 102);
 end
 
-function this:OnQuitButtonClick()
+local function Shutdown()
+    Runtime.GameEntry.Shutdown(Runtime.ShutdownType.Quit)
+end
+
+-- 重写方法
+local function OnQuitButtonClick()
     local dialogParams = CS.Game.DialogParams()
     dialogParams.Mode = 2
     dialogParams.Title = Localization:GetString("AskQuitGame.Title")
     dialogParams.Message = Localization:GetString("AskQuitGame.Message")
-    dialogParams.OnClickConfirm = function()
-        GameFramework.GameEntry.Shutdown(GameFramework.ShutdownType.Quit)
-    end
-    
+    dialogParams.OnClickConfirm = Shutdown
+
     UI:OpenDialog(dialogParams)
 end
 
 function this:OnInit(userData)
     self.base.OnInit(self, userData)
-    startButton = hotfixForm.Components:GetButton(0)
-    startButton.onClick:AddListener(self.OnStartButtonClick)
-    settingButton = hotfixForm.Components:GetButton(1)
-    settingButton.onClick:AddListener(self.OnSettingButtonClick)
-    aboutButton = hotfixForm.Components:GetButton(2)
-    aboutButton.onClick:AddListener(self.OnAboutButtonClick)
-    quitButton = hotfixForm.Components:GetButton(3)
-    quitButton.onClick:AddListener(self.OnQuitButtonClick)
+    local startButton = self.baseForm.Components:GetButton(0)
+    startButton.onClick:AddListener(OnStartButtonClick)
+    local settingButton = self.baseForm.Components:GetButton(1)
+    settingButton.onClick:AddListener(OnSettingButtonClick)
+    local aboutButton = self.baseForm.Components:GetButton(2)
+    aboutButton.onClick:AddListener(OnAboutButtonClick)
+    local quitButton = self.baseForm.Components:GetButton(3)
+    quitButton.onClick:AddListener(OnQuitButtonClick)
     Log.Info("Menu Form Init complete.")
 end
 
 function this:OnOpen(userData)
-    self.base.OnOpen(userData)
+    self.base.OnOpen(self, userData)
     if userData == nil then
         Log.Error("HotfixUserData is null.")
         return
@@ -57,6 +58,12 @@ function this:OnOpen(userData)
         Log.Error("ProcedureMenu is invalid when open MenuForm.")
         return
     end
+    
+    Log.Debug("======" .. self.baseForm.gameObject.name)
+end
+
+function this:OnResume()
+    Log.Debug("======" .. self.baseForm.gameObject.name)
 end
 
 function this:OnClose(isShutDown, userData)

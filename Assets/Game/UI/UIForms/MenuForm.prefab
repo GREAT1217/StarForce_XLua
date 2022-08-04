@@ -365,7 +365,7 @@ MonoBehaviour:
   m_Setup: 1
   m_CollectorTypeName: GameExtension.Editor.DefaultComponentCollector
   m_FieldNamePrefix: m_
-  m_FieldNameByType: 0
+  m_FieldNameByType: 1
   m_FieldNames:
   - m_StartButton
   - m_SettingButton

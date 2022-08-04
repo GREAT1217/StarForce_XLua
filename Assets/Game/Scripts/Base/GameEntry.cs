@@ -7,7 +7,6 @@ namespace Game
     /// <summary>
     /// 游戏入口。
     /// </summary>
-    [LuaCallCSharp]
     public class GameEntry : MonoBehaviour
     {
         /// <summary>

@@ -8,7 +8,7 @@ using UnityEngine;
 
 namespace Game.Editor
 {
-    public static class LuaScriptCollection
+    public static class XLuaScriptCollection
     {
         private const string RootDirectory = "Assets/Game/Scripts/Hotfix";
 

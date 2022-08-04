@@ -4,17 +4,17 @@ Object = require("Define/Object")
 Object:subType("LuaForm")
 local this = LuaForm
 
---- 界面底层逻辑。
-this.hotfixForm = nil
+--- 界面底层逻辑。注意：子类必须使用 self.baseForm 调用，使用 baseForm 调用的是基类的
+this.baseForm = nil
 
 --- 关闭界面。
 function this:Close()
-    hotfixForm:Close(false)
+    self.baseForm:Close(false)
 end
 
 --- 关闭界面。
-function this:Close(ignoreFade)
-    hotfixForm:Close(ignoreFade)
+function this:FadeClose()
+    self.baseForm:Close(true)
 end
 
 --- 界面初始化。
@@ -23,7 +23,7 @@ function this:OnInit(userData)
         Log.Error("HotfixUserData is null")
         return
     end
-    hotfixForm = userData.BaseLogic
+    self.baseForm = userData.BaseLogic
 end
 
 --- 界面回收。

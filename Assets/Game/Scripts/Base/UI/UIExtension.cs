@@ -15,7 +15,6 @@ using XLua;
 
 namespace Game
 {
-    [LuaCallCSharp]
     public static class UIExtension
     {
         public static IEnumerator FadeToAlpha(this CanvasGroup canvasGroup, float alpha, float duration)

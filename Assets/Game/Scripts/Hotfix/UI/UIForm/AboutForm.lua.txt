@@ -1,0 +1,59 @@
+-- 关于界面
+LuaForm:subType("AboutForm")
+local this = AboutForm
+
+-- 字段
+local m_Transform = nil
+local m_ScrollSpeed = 1
+local m_InitPosition = 0
+
+-- 私有方法
+local function SetPositionY(positionY)
+    local position = m_Transform.localPosition
+    position.y = positionY
+    m_Transform.localPosition = position
+end
+
+-- 重写方法
+function this:OnInit(userData)
+    self.base.OnInit(self, userData)
+
+    local canvasScaler = self.baseForm.gameObject:GetComponentInParent(typeof(UGUI.CanvasScaler))
+    if canvasScaler == nil then
+        Log.Warning("Can not find CanvasScaler component.");
+        return
+    end
+
+    m_Transform = self.baseForm.Components:GetRectTransform(0)
+    m_InitPosition = canvasScaler.referenceResolution.x * -0.5 * Unity.Screen.height / Unity.Screen.width
+end
+
+function this:OnOpen(userData)
+    self.base.OnOpen(self, userData)
+
+    SetPositionY(m_InitPosition)
+    m_ScrollSpeed = 100
+
+    Log.Debug("++++++" .. self.baseForm.gameObject.name)
+end
+
+function this:OnResume()
+    Log.Debug("++++++" .. self.baseForm.gameObject.name)
+end
+
+function this:OnClose(isShutDown, userData)
+    Sound:PlayMusic(1)
+    self.base.OnClose(self, isShutDown, userData)
+end
+
+function this:OnUpdate(elapseSeconds, realElapseSeconds)
+    self.base.OnUpdate(self, elapseSeconds, realElapseSeconds)
+
+    local positionY = m_Transform.localPosition.y + m_ScrollSpeed * elapseSeconds
+    SetPositionY(positionY)
+    if (positionY > m_Transform.sizeDelta.y - m_InitPosition) then
+        SetPositionY(m_InitPosition)
+    end
+end
+
+return MenuForm
