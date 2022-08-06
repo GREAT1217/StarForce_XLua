@@ -9,7 +9,12 @@
 ### 使用步骤
 
 1. 增加或删除 lua 文件后，通过菜单 "Game / Generate XLua Collection"，收集并生成 lua 脚本集合文件，用于启动时加载。
+
 2. 在 XLuaConfig.cs 脚本中编辑白名单和黑名单的静态列表，用于指定生成、不生成哪些代码。不需要也不建议使用打标签的方式。通过菜单 "XLua / Generate Code"，生成代码解释器和桥接委托。
+
+### 注意事项
+
+本项目使用了 Submodule： [UnityGameFramework](https://github.com/EllanJiang/UnityGameFramework) 和 [UnityGameExtension](https://github.com/GREAT1217/UnityGameExtension) ，克隆仓库后，需要更新子模块。
 
 ## 相关链接
 
